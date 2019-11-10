@@ -20,17 +20,17 @@ def load_mnist(path,kind='train'):
 
 X_train, y_train = load_mnist('data/', kind='train')
 print('Rows: %d, columns: %d' % (X_train.shape[0], X_train.shape[1]))
-fig, ax = plt.subplots(nrows=4, ncols=5, sharex=True, sharey=True,)
+fig, ax = plt.subplots(nrows=2, ncols=5, sharex=True, sharey=True,)
 ax = ax.flatten()
 
 #file = open('histogram.pickle', 'rb')
 #his=pickle.load(file)
 his=histogram.hiscal(X_train)
-print(his.shape[0])
-print(his.shape[1])
+#print(his.shape[0])
+#print(his.shape[1])
 #xuat hin
 for i in range(10):
-    img = X_train[i]
+    img = X_train[y_train==i][0]
     ax[i].imshow(img, cmap='Greys', interpolation='nearest')
 
 ax[0].set_xticks([])
