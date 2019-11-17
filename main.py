@@ -3,7 +3,7 @@ import os
 import numpy as np
 import gzip
 import pickle
-import histogram
+import func
 def load_mnist(path,kind='train'):
     labels_path = os.path.join(path, '%s-labels-idx1-ubyte.gz' % kind)
     images_path = os.path.join(path, '%s-images-idx3-ubyte.gz' % kind)
@@ -23,12 +23,10 @@ print('Rows: %d, columns: %d' % (X_train.shape[0], X_train.shape[1]))
 fig, ax = plt.subplots(nrows=2, ncols=5, sharex=True, sharey=True,)
 ax = ax.flatten()
 
-#file = open('histogram.pickle', 'rb')
-#his=pickle.load(file)
-his=histogram.hiscal(X_train)
-#print(his.shape[0])
-#print(his.shape[1])
-#xuat hin
+#his=func.hiscal(X_train)
+tmp=func.down_sample(X_train,2,'max')
+
+#xuat hinh
 for i in range(10):
     img = X_train[y_train==i][0]
     ax[i].imshow(img, cmap='Greys', interpolation='nearest')
