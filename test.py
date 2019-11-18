@@ -43,10 +43,10 @@ def downsampling(a,d,pre):
                 summ, maxx, minn = 0, 256, 0
                 for u in range(i * 28//d, (i+1) * 28//d, 1):
                         for v in range(j * 28//d, (j+1) * 28//d, 1):
-                            summ += a[k][i][j]
-                            maxx = max(maxx, a[k][i][j])
-                            minn = min(minn, a[k][i][j])
-                if pre == 0: res[k][i][j] = summ // ((28//d)*(28//d))
+                            summ += a[k][u][v]
+                            maxx = max(maxx, a[k][u][v])
+                            minn = min(minn, a[k][u][v])
+                if pre == 0: res[k][i][j] = summ 
                 if pre == 1: res[k][i][j] = maxx
                 if pre == 2: res[k][i][j] = minn
         ans[k] = (res[k].flatten())
