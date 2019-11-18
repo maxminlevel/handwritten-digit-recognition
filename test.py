@@ -81,7 +81,3 @@ ax[0].set_yticks([])
 plt.tight_layout()
 plt.show()
 
-"""
-    down sampling (4x4,7x7) 
-    -> 3 cach avg,min,max
-"""
