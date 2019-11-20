@@ -20,11 +20,14 @@ def load_mnist(path,kind='train'):
 
 X_train, y_train = load_mnist('data/', kind='train')
 print('Rows: %d, columns: %d' % (X_train.shape[0], X_train.shape[1]))
+X_test, y_test = load_mnist('data/', kind='t10k')
+print('Rows: %d, columns: %d' % (X_test.shape[0], X_test.shape[1]))
+
 fig, ax = plt.subplots(nrows=2, ncols=5, sharex=True, sharey=True,)
 ax = ax.flatten()
 
 #his=func.hiscal(X_train)
-tmp=func.down_sample(X_train,2,'max')
+#tmp=func.down_sample(X_train,2,'max')
 
 #xuat hinh
 for i in range(10):
