@@ -23,12 +23,22 @@ print('Rows: %d, columns: %d' % (X_train.shape[0], X_train.shape[1]))
 fig, ax = plt.subplots(nrows=2, ncols=5, sharex=True, sharey=True,)
 ax = ax.flatten()
 
+<<<<<<< Updated upstream
 #file = open('histogram.pickle', 'rb')
 #his=pickle.load(file)
 his=histogram.hiscal(X_train)
 #print(his.shape[0])
 #print(his.shape[1])
 #xuat hin
+=======
+#test
+print()
+
+#his=func.hiscal(X_train)
+#tmp=func.down_sample(X_train,4,'max')
+#print(tmp[0])
+#xuat hinh
+>>>>>>> Stashed changes
 for i in range(10):
     img = X_train[y_train==i][0]
     ax[i].imshow(img, cmap='Greys', interpolation='nearest')
