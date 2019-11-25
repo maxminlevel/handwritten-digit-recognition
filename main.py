@@ -75,17 +75,6 @@ def load_mnist(path, kind='train'):
 X_train, y_train = load_mnist('data/', kind='train')
 X_test, y_test = load_mnist('data/', kind='t10k')
 y_ans = np.ones(y_test.shape) * -1
-fig, ax = plt.subplots(nrows=2, ncols=10, sharex=True, sharey=True, )
-ax = ax.flatten()
-# his=func.hiscal(X_train)
-# tmp=down_sample(X_train,2,'max')
-for i in range(20):
-    img = X_test[i]
-    ax[i].imshow(img, cmap='Greys', interpolation='nearest')
-ax[0].set_xticks([])
-ax[0].set_yticks([])
-plt.tight_layout()
-plt.show()
 
 
 # X_train = X_train[:6000]
@@ -109,8 +98,8 @@ def init(type, size=14, t='avg'):
         X_train = histogram(X_train)
         X_test = histogram(X_test)
     if (type == 'downsampling'):
-        X_train = down_sample(X_train, size, 'avg')
-        X_test = down_sample(X_test, size, 'avg')
+        #X_train = down_sample(X_train, size, 'avg')
+        #X_test = down_sample(X_test, size, 'avg')
         X_train = nflatten(X_train)
         X_test = nflatten(X_test)
     print('done')
@@ -125,18 +114,33 @@ def distance(a, b):
 
 
 # -----------------------------------------------------------------------------------------------------------------------
-def KNN(position, k=50, size=60000):
+def KNN(input ,X_train, y_train, k=50):
+    size=X_train.shape[0]
     heap = []
     for i in range(k):
-        heapq.heappush(heap, (-distance(X_test[position], X_train[i]), y_train[i]))
+        heapq.heappush(heap, (-distance(input, X_train[i]), y_train[i]))
     for i in range(k, size):
-        heapq.heappushpop(heap, (-distance(X_test[position], X_train[i]), y_train[i]))
+        heapq.heappushpop(heap, (-distance(input, X_train[i]), y_train[i]))
     sl = np.zeros((10))
     for i in heap:
         sl[i[1]] += 1
     return np.argmax(sl)
 
+# -----------------------------------------------------------------------------------------------------------------------
+def AVG(input ,X_train, y_train):
+    avg_train = np.zeros((10,X_train.shape[1]))
+    count= np.zeros((10))
+    for i in range(X_train.shape[0]):
+        avg_train[int(y_train[i])]+=X_train[i]
+        count[y_train[i]]+=1
+    for i in range(10):
+        avg_train[i]/=count[i]
+    avg_lable=[0,1,2,3,4,5,6,7,8,9]
 
+    return KNN(input,avg_train,avg_lable,1)
+
+# -----------------------------------------------------------------------------------------------------------------------
 init('downsampling', 14)
-for i in range(2320, 2340):
-    print(KNN(i), y_test[i])
+print(KNN(X_test[0],X_train,y_train), y_test[0])
+print(AVG(X_test[0],X_train,y_train), y_test[0])
+
